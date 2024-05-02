@@ -11,7 +11,11 @@ const agent = new https.Agent({
 
 // Define a simple route
 app.get('/', (req, res) => {
-    res.sendFile("index.html");
+  // Use a relative path to specify the location of index.html
+  const indexPath = './index.html';
+
+  // Send the index.html file as the response
+  res.sendFile(indexPath, { root: __dirname });
 });
 
 app.get('/lyrics-api/:req', (req, res) => {
