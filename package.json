@@ -1,0 +1,16 @@
+{
+  "name": "lyrics-proxy-server",
+  "version": "1.0.0",
+  "description": "edgardo youre welcome pookie",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gani Omirzak",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "express": "^4.19.2",
+    "https": "^1.0.0"
+  }
+}
