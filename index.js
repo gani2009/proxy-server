@@ -18,12 +18,12 @@ app.get('/', (req, res) => {
   res.sendFile(indexPath, { root: __dirname });
 });
 
-app.get('/lyrics-api/:req', (req, res) => {
+app.get('/api-lyrics/:req', (req, res) => {
     axios.get(`https://api.textyl.co/api/lyrics?q=${req.params.req}`, { httpsAgent: agent })
         .then(response => {
           // Handle successful response
-          const jsonData = JSON.stringify(response.data);
-          console.log(jsonData);
+          const jsonData = response.data;
+          res.json(jsonData);
         })
         .catch(error => {
           // Handle errors
