@@ -13,9 +13,10 @@
     <p>This means you can just use fetch() to get the json</p>
 
     <h1>WebSocket</h1>
-    <p>Now there is a WebSocket running on "/" url. i.e. the home url</p>
+    <p>Now there is a WebSocket running on "/websocket/:roomid"</p>
+    <p style="font-weight: bold;">REQUIRED: replace :roomnumber with any string you want to use to make your websockets available only by that room id. Leaving it blank will result in unsuccessful WebSocket connection. </p>
     <p>use this to connect to it on your client side:</p>
-    <p style="font-weight: bold;">const socket = new WebSocket('wss://ganisproxyserver.onrender.com');</p>
+    <p style="font-weight: bold;">const socket = new WebSocket('wss://ganisproxyserver.onrender.com/websocket/');</p>
     <p>To receive messages: </p>
     <p style="font-weight: bold;">socket.addEventListener("message", msg => {});</p>
     <p>To send messages: </p>

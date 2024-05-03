@@ -6,12 +6,10 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 var expressWs = require('express-ws')(app);
-app.ws('/', function(ws, req) {
+app.ws('/websocket/:url', function(ws, req) {
   ws.on('message', function(msg) {
-    // expressWs.getWss().clients.forEach(client => {
-    //   client.send(msg);
-    // });
     ws.send(msg);
+    console.log(msg)
   });
 });
 
@@ -37,7 +35,12 @@ app.get('/api-lyrics/:req', (req, res) => {
         })
         .catch(error => {
           // Handle errors
+          if (error.response.status == 404) {
+            res.json({"Response": "No lyrics found, sorry buddy :("});
+            return;
+          };
           console.error('Error fetching data:', error);
+          res.send("504 Server Error");
     });
 });
 
