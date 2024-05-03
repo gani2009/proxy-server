@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gani's Proxy server</title>
+    <title>Gani's Personel server</title>
 </head>
 <body>
     <h1>api.textyl.co</h1>
     <p>Use route "/api-lyrics/"</p>
     <p>then put the name of your request at the end of the route</p>
     <p>Example: <a href="/api-lyrics/the%20beatles%20norwegian%20wood">/api-lyrics/the%20beatles%20norwegian%20wood</a></p>
+    <p>This means you can just use fetch() to get the json</p>
+
+    <h1>WebSocket</h1>
+    <p>Now there is a WebSocket running on "/" url. i.e. the home url</p>
+    <p>use this to connect to it on your client side:</p>
+    <p style="font-weight: bold;">const socket = new WebSocket('wss://ganisproxyserver.onrender.com');</p>
+    <p>To receive messages: </p>
+    <p style="font-weight: bold;">socket.addEventListener("message", msg => {});</p>
+    <p>To send messages: </p>
+    <p style="font-weight: bold;">socket.send("Message to the server and all other clients. ");</p>
 </body>
 </html>

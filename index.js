@@ -4,6 +4,15 @@ const https = require('https');
 const { log } = require('console');
 
 const app = express();
+var expressWs = require('express-ws')(app);
+app.ws('/', function(ws, req) {
+  ws.on('message', function(msg) {
+    // expressWs.getWss().clients.forEach(client => {
+    //   client.send(msg);
+    // });
+    ws.send(msg);
+  });
+});
 
 const agent = new https.Agent({
   rejectUnauthorized: false // Ignore SSL certificate validation (use with caution)
