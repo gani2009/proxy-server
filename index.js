@@ -2,14 +2,43 @@ const express = require('express');
 const axios = require('axios');
 const https = require('https');
 const cors = require('cors');
+const WebSocket = require('ws');
 
 const app = express();
 app.use(cors());
 var expressWs = require('express-ws')(app);
-app.ws('/websocket/:url', function(ws, req) {
-  ws.on('message', function(msg) {
-    ws.send(msg);
-    console.log(msg)
+const clientsByURL = {};
+
+// Define WebSocket route
+app.ws('/websocket/:url', (ws, req) => {
+  const urlParam = req.params.url;
+
+  // Store WebSocket client in the object based on URL
+  if (!clientsByURL[urlParam]) {
+    clientsByURL[urlParam] = [];
+  };
+  clientsByURL[urlParam].push(ws);
+
+
+  ws.on('message', (msg) => {
+    // Broadcast received message to all clients connected to the same URL
+    if (clientsByURL[urlParam]) {
+      clientsByURL[urlParam].forEach((client) => {
+        if (client !== ws && client.readyState === WebSocket.OPEN) {
+          client.send(msg);
+        }
+      });
+    }
+  });
+
+  ws.on('close', () => {
+    // Remove WebSocket client from the object when connection is closed
+    if (clientsByURL[urlParam]) {
+      clientsByURL[urlParam] = clientsByURL[urlParam].filter((client) => client !== ws);
+      if (clientsByURL[urlParam].length === 0) {
+        delete clientsByURL[urlParam];
+      }
+    };
   });
 });
 
