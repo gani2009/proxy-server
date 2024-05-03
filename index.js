@@ -1,9 +1,10 @@
 const express = require('express');
 const axios = require('axios');
 const https = require('https');
-const { log } = require('console');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 var expressWs = require('express-ws')(app);
 app.ws('/', function(ws, req) {
   ws.on('message', function(msg) {
