@@ -38,11 +38,12 @@ app.ws('/websocket/:url', (ws, req) => {
     if (clientsByURL[urlParam]) {
       clientsByURL[urlParam].forEach((client) => {
         if (client !== ws && client.readyState === WebSocket.OPEN) {
-          client.send(msg);
+          messageandclients = {msg: msg, members: clientsByURL[urlParam].length};
+          client.send(JSON.stringify(messageandclients));
           stats.websocket.totalMessages++;
-        }
+        };
       });
-    }
+    };
   });
 
   ws.on('close', () => {
@@ -51,7 +52,7 @@ app.ws('/websocket/:url', (ws, req) => {
       clientsByURL[urlParam] = clientsByURL[urlParam].filter((client) => client !== ws);
       if (clientsByURL[urlParam].length === 0) {
         delete clientsByURL[urlParam];
-      }
+      };
     };
   });
 });
