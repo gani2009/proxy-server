@@ -92,13 +92,13 @@ app.get('/api-lyrics/:req', (req, res) => {
 
 app.get('/stats', (req, res) => {
   res.send(`
-    <h1>api.textyl.co</h1>
-    <p>Total Clients: ${stats.apiLyrics.numRequests}</p>
-    <p>Total Messages: ${stats.apiLyrics.num404requests}</p>
-
     <h1>WebSocket</h1>
-    <p>Number of Requests: ${stats.websocket.totalClients}</p>
-    <p>Number of Not Found Lyrics: ${stats.websocket.totalMessages}</p>
+    <p>Total Clients: ${stats.websocket.totalClients}</p>
+    <p>Total Messages: ${stats.websocket.totalMessages}</p>
+
+    <h1>api.textyl.co</h1>
+    <p>Number of Requests: ${stats.apiLyrics.numRequests}</p>
+    <p>Number of Not Found Lyrics: ${stats.apiLyrics.num404requests}</p>
   `);
 });
 
